@@ -1,0 +1,8 @@
+library(httr)
+oauth_endpoint("github")
+myapp <- oauth_app("github","21c09619f910cabb7e83",secret = "eee27adfa9da009f7c02e20fc8f12b0378cb2de8")
+github_token <- oauth2.0_token(oauth_endpoints("github"),myapp)
+request1 <- GET(("https://api.github.com/users/jtleek/repos"),config(token = github_token))
+myjson <- content(request1)
+myjson2 <- jsonlite::fromJSON(toJSON(myjson))
+subset(myjson2,select = c(created_at,clone_url))
